@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class User(BaseModel): # This is the request body for POST /users
     name: str
@@ -8,7 +8,9 @@ class User(BaseModel): # This is the request body for POST /users
 
 class Product(BaseModel):
     name: str
-    price: int
+    price: int = Field(tittle='Price of the item', # This is an addition on docs
+                       description='This would be the price',
+                       gt=0) # This means that it must be greater than 0
     discount: int
     discounted_price: float = 0
 
