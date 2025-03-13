@@ -8,7 +8,7 @@ class User(BaseModel): # This is the request body for POST /users
 
 class Product(BaseModel):
     name: str
-    price: int = Field(tittle='Price of the item', # This is an addition on docs
+    price: int = Field(tittle='Price of the item', # This is an addition to the docs
                        description='This would be the price',
                        gt=0) # This means that it must be greater than 0
     discount: int
