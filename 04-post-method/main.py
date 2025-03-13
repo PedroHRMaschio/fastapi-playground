@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
+from typing import List, Set
+
 
 class User(BaseModel): # This is the request body for POST /users
     name: str
@@ -13,6 +15,8 @@ class Product(BaseModel):
                        gt=0) # This means that it must be greater than 0
     discount: int
     discounted_price: float = 0
+    tags: List[str] = [] # Here I have a list that only accepts strings.
+    tags_unique: Set[str] = [] # Here I have a list that only accepts unique strings.
 
 app = FastAPI()
 
