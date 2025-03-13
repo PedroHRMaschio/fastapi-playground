@@ -9,5 +9,5 @@
 ## Run the server
 
 ```bash
-    uvicorn simple-api.main:app --reload
+    uvicorn {lesson folder}.main:app --reload
 ```
