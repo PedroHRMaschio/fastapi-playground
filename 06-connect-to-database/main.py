@@ -26,3 +26,13 @@ def create_product(request: schemas.Product, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_product)
     return new_product
+
+@app.get('/product')
+def get_all_products(db: Session = Depends(get_db)):
+    products = db.query(models.Product).all()
+    return products
+
+@app.get('/product/{id}')
+def get_product(id: int, db: Session = Depends(get_db)):
+    product = db.query(models.Product).filter(models.Product.id == id).first()
+    return product
