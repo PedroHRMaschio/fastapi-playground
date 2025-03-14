@@ -23,6 +23,22 @@ class Product(BaseModel):
     tags: List[str] = [] # Here I have a list that only accepts strings.
     tags_unique: Set[str] = [] # Here I have a list that only accepts unique strings.
 
+    class Config: # This is an addition to the docs
+        schema_extra = {
+            'example': {
+                'name': 'Phone',
+                'price': 200,
+                'discount': 20,
+                'discounted_price': 180,
+                'image': {
+                    'url': 'http://example.com/phone.jpg',
+                    'name': 'phone'
+                },
+                'tags': ['smart', 'android'],
+                'tags_unique': ['smart', 'android']
+            }
+        }
+
 app = FastAPI()
 
 @app.post('/users')
