@@ -1,6 +1,16 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field, HttpUrl
 from typing import List, Set
+from uuid import UUID
+from datetime import date, datetime, time, timedelta
+
+class Event(BaseModel):
+    event_id: UUID
+    start_date: date
+    start_time: datetime
+    end_time: datetime
+    repeat_time: time
+    execute_after: timedelta
 
 
 class User(BaseModel): # This is the request body for POST /users
@@ -54,3 +64,7 @@ def create_product(product: Product):
 @app.post('/purchase')
 def purchase(user: User, product: Product):
     return {'user': user, 'product': product}
+
+@app.post('/events')
+def create_event(event: Event):
+    return event
