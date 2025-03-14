@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, HttpUrl
 from typing import List, Set
 
 
@@ -8,6 +8,10 @@ class User(BaseModel): # This is the request body for POST /users
     email: str
     age: int
 
+class Image(BaseModel):
+    url: HttpUrl
+    name: str
+
 class Product(BaseModel):
     name: str
     price: int = Field(tittle='Price of the item', # This is an addition to the docs
@@ -15,6 +19,7 @@ class Product(BaseModel):
                        gt=0) # This means that it must be greater than 0
     discount: int
     discounted_price: float = 0
+    image: Image
     tags: List[str] = [] # Here I have a list that only accepts strings.
     tags_unique: Set[str] = [] # Here I have a list that only accepts unique strings.
 
