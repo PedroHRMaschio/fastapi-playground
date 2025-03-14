@@ -12,7 +12,6 @@ class Event(BaseModel):
     repeat_time: time
     execute_after: timedelta
 
-
 class User(BaseModel): # This is the request body for POST /users
     name: str
     email: str
