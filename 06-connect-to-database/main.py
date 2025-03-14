@@ -50,3 +50,11 @@ def delete_product(id: int, db: Session = Depends(get_db)):
     db.query(models.Product).filter(models.Product.id == id).delete(synchronize_session=False)
     db.commit()
     return 'done'
+
+@app.post('/seller')
+def create_seller(request: schemas.Seller, db: Session = Depends(get_db)):
+    new_seller = models.Seller(username=request.username, email=request.email, password=request.password)
+    db.add(new_seller)
+    db.commit()
+    db.refresh(new_seller)
+    return new_seller
