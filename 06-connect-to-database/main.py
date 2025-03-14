@@ -36,3 +36,10 @@ def get_all_products(db: Session = Depends(get_db)):
 def get_product(id: int, db: Session = Depends(get_db)):
     product = db.query(models.Product).filter(models.Product.id == id).first()
     return product
+
+@app.delete('/product/{id}')
+def delete_product(id: int, db: Session = Depends(get_db)):
+    product = db.query(models.Product).filter(models.Product.id == id).first()
+    db.delete(product)
+    db.commit()
+    return 'done'
