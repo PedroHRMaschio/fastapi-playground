@@ -27,6 +27,15 @@ def create_product(request: schemas.Product, db: Session = Depends(get_db)):
     db.refresh(new_product)
     return new_product
 
+@app.put('/product/{id}')
+def update_product(id: int, request: schemas.Product, db: Session = Depends(get_db)):
+    product = db.query(models.Product).filter(models.Product.id == id)
+    if not product.first():
+        return 'Product not found'
+    product.update(request.model_dump())
+    db.commit()
+    return 'updated'
+
 @app.get('/product')
 def get_all_products(db: Session = Depends(get_db)):
     products = db.query(models.Product).all()
