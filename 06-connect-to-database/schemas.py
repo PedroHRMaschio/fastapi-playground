@@ -24,3 +24,7 @@ class DisplayProduct(BaseModel): # Use this class to return the product hidding 
     seller: DisplaySeller
     class Config:
         orm_mode = True
+
+class Login(BaseModel):
+    email: str
+    password: str
