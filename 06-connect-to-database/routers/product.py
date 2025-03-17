@@ -4,6 +4,7 @@ from fastapi.params import Depends
 import schemas
 import models
 from database import get_db
+from .login import get_current_user
 
 router = APIRouter(
     tags=['Product'],
@@ -11,7 +12,7 @@ router = APIRouter(
 )
 
 @router.post('/', status_code=status.HTTP_201_CREATED)
-def create_product(request: schemas.Product, db: Session = Depends(get_db)):
+def create_product(request: schemas.Product, db: Session = Depends(get_db), current_user: schemas.Seller = Depends(get_current_user)):
     new_product = models.Product(name=request.name, description=request.description, price=request.price, seller_id=request.seller_id)
     db.add(new_product)
     db.commit()
