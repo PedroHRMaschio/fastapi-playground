@@ -54,7 +54,7 @@ def delete_product(id: int, db: Session = Depends(get_db)):
     db.commit()
     return 'done'
 
-@app.post('/seller')
+@app.post('/seller', response_model=schemas.DisplaySeller, status_code=status.HTTP_201_CREATED)
 def create_seller(request: schemas.Seller, db: Session = Depends(get_db)):
     hashed_password = pwd_context.hash(request.password)
     new_seller = models.Seller(username=request.username, email=request.email, password=hashed_password)
