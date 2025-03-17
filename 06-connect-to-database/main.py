@@ -21,7 +21,7 @@ def get_db():
 
 @app.post('/product', status_code=status.HTTP_201_CREATED)
 def create_product(request: schemas.Product, db: Session = Depends(get_db)):
-    new_product = models.Product(name=request.name, description=request.description, price=request.price)
+    new_product = models.Product(name=request.name, description=request.description, price=request.price, seller_id=request.seller_id)
     db.add(new_product)
     db.commit()
     db.refresh(new_product)
@@ -36,7 +36,7 @@ def update_product(id: int, request: schemas.Product, db: Session = Depends(get_
     db.commit()
     return 'updated'
 
-@app.get('/product')
+@app.get('/product', response_model=list[schemas.DisplayProduct])
 def get_all_products(db: Session = Depends(get_db)):
     products = db.query(models.Product).all()
     return products
