@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class Seller(BaseModel):
     username: str
@@ -28,3 +29,10 @@ class DisplayProduct(BaseModel): # Use this class to return the product hidding 
 class Login(BaseModel):
     email: str
     password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class TokenData(BaseModel):
+    username: Optional[str] = None
